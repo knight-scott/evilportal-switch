@@ -54,7 +54,7 @@ evilportal-switch
 Clone this repo:
 
 ```bash
-git clone <evilportal_switch_repo> /tmp/evilportal-switch
+git clone https://github.com/knight-scott/evilportal-switch.git /tmp/evilportal-switch
 cd evilportal-switch
 ```
 
