@@ -61,7 +61,7 @@ git clone https://github.com/knight-scott/evilportal-switch.git /tmp/evilportal-
 Apply the patch to `/etc/init.d/evilportal`:
 
 ```bash
-cd evilportal-switch
+cd /tmp/evilportal-switch
 patch /etc/init.d/evilportal < patches/evilportal-init-switch.patch
 ```
 
