@@ -28,6 +28,7 @@ A new `switch` subcommand is added to the Evil Portal init script, allowing runt
 
 ### Directory Structure
 
+```text
 evilportal-switch
 ├── patches
 │   └── evilportal-init-switch.patch
@@ -35,6 +36,7 @@ evilportal-switch
 │   └── switch_evil_portal
 │       └── payload.sh
 └── README.md
+```
 
 ---
 
