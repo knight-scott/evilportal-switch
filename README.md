@@ -56,12 +56,12 @@ Clone this repo:
 
 ```bash
 git clone https://github.com/knight-scott/evilportal-switch.git /tmp/evilportal-switch
-cd evilportal-switch
 ```
 
 Apply the patch to `/etc/init.d/evilportal`:
 
 ```bash
+cd evilportal-switch
 patch /etc/init.d/evilportal < patches/evilportal-init-switch.patch
 ```
 
