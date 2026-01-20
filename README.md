@@ -45,6 +45,7 @@ evilportal-switch
 - WiFi Pineapple Pager (OpenWrt 24.10.1)
 - **evil_portal** installed using `install_evil_portal` payload
 - alternate portals in `/root/portals/`. I am using a copy from [GitHub](https://github.com/kleo/evilportals.git). Ensure that your portals fit the format of the Default portal.
+- `patch` installed via `opkg`
 
 ---
 
