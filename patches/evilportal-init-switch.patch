@@ -1,5 +1,5 @@
---- /etc/init.d/evilportal.orig	2025-01-17 00:00:00.000000000 +0000
-+++ /etc/init.d/evilportal	2025-01-18 00:00:00.000000000 +0000
+--- originals/evilportal.orig	2026-01-18 23:10:24.603418346 -0700
++++ evilportal_dev	2026-01-18 23:19:20.207028483 -0700
 @@ -2,6 +2,10 @@
  
  START=99
@@ -29,7 +29,7 @@
  
      # Start whitelist daemon
      /usr/bin/evilportal-whitelist-daemon &
-@@ -86,6 +91,44 @@
+@@ -86,6 +91,45 @@
      remove_whitelist_rules
  }
  
@@ -75,3 +75,8 @@
  start() {
      # Add TEMPORARY nft rules (disappear on reboot)
      add_nft_rules
+@@ -199,3 +243,4 @@
+ 
+     logger -t evilportal "Evil Portal disabled (will not start on next reboot)"
+ }
++
