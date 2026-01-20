@@ -62,7 +62,8 @@ Apply the patch to `/etc/init.d/evilportal`:
 
 ```bash
 cd /tmp/evilportal-switch
-patch /etc/init.d/evilportal < patches/evilportal-init-switch.patch
+opkg install patch
+patch /etc/init.d/evilportal < patches/evilportal-init-switch.patch 
 ```
 
 ---
