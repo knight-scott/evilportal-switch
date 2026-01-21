@@ -66,7 +66,7 @@ Clone this repo to a workstation computer or to the `/tmp` directory of the WiFi
 git clone https://github.com/knight-scott/evilportal-switch.git /tmp/evilportal-switch
 ```
 
-- If cloning to your computer first, you can use `scp` to transfer the files. See the [documentation](https://docs.hak5.org/wifi-pineapple-pager/payloads/installing-payloads/).
+- If cloning to your computer first, you can use `scp` to transfer the files. See the [documentation](https://docs.hak5.org/wifi-pineapple-pager/payloads/installing-payloads/) for more information.
 
 Move payloads to the appropriate `evil_portal` directory:
 
