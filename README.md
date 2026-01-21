@@ -1,6 +1,8 @@
 # Evil Portal Switch Helper (WiFi Pineapple Pager)
 
-This helper adds a safe and minimal way to switch between installed Evil Portal portals without editing `etc/init.d/evilportal` or restarting the device.
+This helper adds a safe and minimal way to switch between installed Evil Portal portals without editing `etc/init.d/evilportal` or restarting the device. 
+
+> **Note:** This function is currently proposed in a [pull request](https://github.com/hak5/wifipineapplepager-payloads/pull/213) to the official [`wifipineapplepager-payloads`](https://github.com/hak5/wifipineapplepager-payloads.git) repository. Until the PR is merged (or if it is declined), this repo provides an optional, user-installable alternative.
 
 ---
 
@@ -9,20 +11,24 @@ This helper adds a safe and minimal way to switch between installed Evil Portal 
 Evil Portal normally loads assets from a single portal directory.  
 This helper introduces a symlink-based approach:
 
-/root/portals/current -> /root/portals/<portal-name>
+`/root/portals/current -> /root/portals/<portal-name>`
 
 The Evil Portal service then references `/root/portals/current` instead of a fixed portal.
 
 A new `switch` subcommand is added to the Evil Portal init script, allowing runtime switching with the `switch_evil_portal` payload.
 
+The `install_evil_portal` & `default_portal` payloads are adjusted for symlink creation and usage
+
 ---
 
 ### What This Does
 
-✔ Adds `switch <portal>` to `/etc/init.d/evilportal`  
-✔ Uses atomic symlink updates (`ln -sfn`)  
+✔ Updates `install_evil_portal/payload.sh` with helper to switch portals
+✔ Adds `switch_evil_portal` payload  
+✔ Uses atomic symlink updates (`ln -sfn`)
+✔ Updates `default_portal` to use symlink
 ✔ Requires no service restart  
-✔ Leaves Evil Portal logic untouched  
+✔ Leaves Evil Portal logic untouched
 
 ---
 
@@ -30,9 +36,11 @@ A new `switch` subcommand is added to the Evil Portal init script, allowing runt
 
 ```text
 evilportal-switch
-├── patches
-│   └── evilportal-init-switch.patch
 ├── payloads
+│   └── default_portal
+│       └── payload.sh
+│   └── install_evil_portal
+│       └── payload.sh
 │   └── switch_evil_portal
 │       └── payload.sh
 └── README.md
@@ -43,55 +51,39 @@ evilportal-switch
 ## Requirements
 
 - WiFi Pineapple Pager (OpenWrt 24.10.1)
-- **evil_portal** installed using `install_evil_portal` payload
+- **evil_portal** installed. Payloads such as `start`, `stop`, `enable` and `disable` should be installed from the official repository.
 - alternate portals in `/root/portals/`. I am using a copy from [GitHub](https://github.com/kleo/evilportals.git). Ensure that your portals fit the format of the Default portal.
-- `patch` installed via `opkg`
 
 ---
 
 ## Installation
 
-### Step 1 – Apply Init Script Patch
+### Step 1 – Clone Repository
 
-Clone this repo:
+Clone this repo to a workstation computer or to the `/tmp` directory of the WiFi Pineapple Pager directly:
 
 ```bash
 git clone https://github.com/knight-scott/evilportal-switch.git /tmp/evilportal-switch
 ```
 
-Apply the patch to `/etc/init.d/evilportal`:
+- If cloning to your computer first, you can use `scp` to transfer the files. See the [documentation](https://docs.hak5.org/wifi-pineapple-pager/payloads/installing-payloads/).
+
+Move payloads to the appropriate `evil_portal` directory:
 
 ```bash
-cd /tmp/evilportal-switch
-opkg install patch
-patch /etc/init.d/evilportal < patches/evilportal-init-switch.patch 
+mv /tmp/evilportal-switch/payloads/default_portal/payload.sh /root/payloads/user/evil_portal/default_portal/
+mv /tmp/evilportal-switch/payloads/install_evil_portal/payload.sh /root/payloads/user/evil_portal/install_evil_portal/
+mv /tmp/evilportal-switch/payloads/switch_evil_portal /root/payloads/user/evil_portal/
+rm -rf /tmp/evilportal-switch/
 ```
 
----
+### Step 2 – Run Install Payload
 
-### Step 2 – Ensure `current` Symlink Exists
+From the Evil Portal payload directory, launch the `install_evil_portal` payload.
 
-```bash
-ln -sfn /root/portals/Default /root/portals/current
-```
+## Portal Switch Usage (From Pager)
 
-This only needs to be done once.
-
----
-
-### Step 3 – Install Payload
-
-Copy the payload directory to:
-
-```bash
-mv payloads/switch_evil_portal /root/payloads/user/evil_portal/switch_evil_portal
-```
-
----
-
-## Usage (From Pager)
-
-1. Launch the payload **Switch Evil Portal**
+1. Launch the payload `switch_evil_portal`
 2. Select a portal number using the NUMBER_PICKER
 3. The symlink updates instantly
 4. Captive portal content changes immediately
@@ -132,7 +124,7 @@ logread | grep evilportal
 
 - Evil Portal originally developed by newbi3 for WiFi Pineapple Mark VII
 - Adapted for WiFi Pineapple Pager by PentestPlaybook
-- Helper & payload by 0x4B
+- Swittch Helper & payload by 0x4B
 
 This contribution is intended as an optional enhancement.
 
