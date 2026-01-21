@@ -38,9 +38,9 @@ The `install_evil_portal` & `default_portal` payloads are adjusted for symlink c
 evilportal-switch
 ├── payloads
 │   └── default_portal
-│       └── payload.sh
+│   │   └── payload.sh
 │   └── install_evil_portal
-│       └── payload.sh
+│   │   └── payload.sh
 │   └── switch_evil_portal
 │       └── payload.sh
 └── README.md
