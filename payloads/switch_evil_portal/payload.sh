@@ -60,6 +60,9 @@ fi
 
 # Switch portal via init script
 LOG "Switching Evil Portal to: $SELECTED_PORTAL"
-/etc/init.d/evilportal switch "$SELECTED_PORTAL"
-
-PROMPT "Evil Portal switched to:\n$SELECTED_PORTAL"
+if /etc/init.d/evilportal switch "$SELECTED_PORTAL"; then
+    PROMPT "Evil Portal switched to:\n$SELECTED_PORTAL"
+else
+    ERROR_DIALOG "Failed to switch portal"
+    exit 1
+fi
